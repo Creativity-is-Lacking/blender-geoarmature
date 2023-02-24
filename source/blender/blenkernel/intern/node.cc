@@ -313,6 +313,7 @@ static void library_foreach_node_socket(LibraryForeachIDData *data, bNodeSocket 
     case SOCK_CUSTOM:
     case SOCK_SHADER:
     case SOCK_GEOMETRY:
+    case SOCK_ARMATUREDATA:
       break;
   }
 }
@@ -458,6 +459,7 @@ static void write_node_socket_default_value(BlendWriter *writer, bNodeSocket *so
     case __SOCK_MESH:
     case SOCK_SHADER:
     case SOCK_GEOMETRY:
+    case SOCK_ARMATUREDATA:
       BLI_assert_unreachable();
       break;
   }
@@ -877,6 +879,7 @@ static void lib_link_node_socket(BlendLibReader *reader, Library *lib, bNodeSock
     case SOCK_CUSTOM:
     case SOCK_SHADER:
     case SOCK_GEOMETRY:
+    case SOCK_ARMATUREDATA:
       break;
   }
 }
@@ -972,6 +975,7 @@ static void expand_node_socket(BlendExpander *expander, bNodeSocket *sock)
       case SOCK_CUSTOM:
       case SOCK_SHADER:
       case SOCK_GEOMETRY:
+      case SOCK_ARMATUREDATA:
         break;
     }
   }
@@ -1586,6 +1590,7 @@ static void socket_id_user_increment(bNodeSocket *sock)
     case SOCK_CUSTOM:
     case SOCK_SHADER:
     case SOCK_GEOMETRY:
+    case SOCK_ARMATUREDATA:
       break;
   }
 }
@@ -1645,6 +1650,7 @@ static bool socket_id_user_decrement(bNodeSocket *sock)
     case SOCK_CUSTOM:
     case SOCK_SHADER:
     case SOCK_GEOMETRY:
+    case SOCK_ARMATUREDATA:
       break;
   }
   return false;
@@ -1789,6 +1795,8 @@ const char *nodeStaticSocketType(int type, int subtype)
       return "NodeSocketTexture";
     case SOCK_MATERIAL:
       return "NodeSocketMaterial";
+    case SOCK_ARMATUREDATA:
+      return "NodeSocketArmature";
   }
   return nullptr;
 }
@@ -1866,6 +1874,8 @@ const char *nodeStaticSocketInterfaceType(int type, int subtype)
       return "NodeSocketInterfaceTexture";
     case SOCK_MATERIAL:
       return "NodeSocketInterfaceMaterial";
+    case SOCK_ARMATUREDATA:
+      return "NodeSocketInterfaceArmature";
   }
   return nullptr;
 }
@@ -1899,6 +1909,8 @@ const char *nodeStaticSocketLabel(int type, int /*subtype*/)
       return "Texture";
     case SOCK_MATERIAL:
       return "Material";
+    case SOCK_ARMATUREDATA:
+      return "Armature Data";
   }
   return nullptr;
 }

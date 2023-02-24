@@ -232,6 +232,7 @@ typedef enum eNodeSocketDatatype {
   SOCK_COLLECTION = 11,
   SOCK_TEXTURE = 12,
   SOCK_MATERIAL = 13,
+  SOCK_ARMATUREDATA = 14,
 } eNodeSocketDatatype;
 
 /** Socket shape. */
@@ -1583,6 +1584,10 @@ typedef struct NodeGeometryDistributePointsInVolume {
   /* GeometryNodePointDistributeVolumeMode. */
   uint8_t mode;
 } NodeGeometryDistributePointsInVolume;
+
+typedef struct NodeArmatureData {
+  uint8_t mode; //unused
+} NodeArmatureData;
 
 typedef struct NodeFunctionCompare {
   /* NodeCompareOperation */
