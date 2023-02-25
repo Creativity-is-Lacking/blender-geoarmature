@@ -14,7 +14,7 @@ static void node_geo_exec(GeoNodeExecParams params)
 
 }  // namespace blender::nodes::node_geo_get_bone_by_name_cc
 
-void register_node_type_geo_node_get_bone_by_name_cc()
+void register_node_type_geo_node_get_bone_by_name()
 {
   namespace file_ns = blender::nodes::node_geo_get_bone_by_name_cc;
 

@@ -665,7 +665,7 @@ bNodeSocket &Custom::update_or_build(bNodeTree & /*ntree*/,
 bNodeSocket &ArmatureData::build(bNodeTree &ntree, bNode &node) const
 {
   bNodeSocket &socket = *nodeAddSocket(
-      &ntree, &node, in_out_, "NodeSocketArmature", identifier_.c_str(), name_.c_str());
+      &ntree, &node, this->in_out, "NodeSocketArmature", this->identifier.c_str(), this->name.c_str());
   this->set_common_flags(socket);
   return socket;
 }
