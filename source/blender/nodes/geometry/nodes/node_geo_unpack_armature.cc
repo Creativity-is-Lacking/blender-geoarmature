@@ -1,7 +1,9 @@
 /* SPDX-License-Identifier: GPL-2.0-or-later */
+#undef rad1
+#undef rad2
 
-#include "../../../makesdna/DNA_modifier_types.h"
-
+#include "BKE_armature.h"
+#include "DNA_armature_types.h"
 #include "node_geometry_util.hh"
 
 
@@ -12,21 +14,25 @@
   {
     b.add_input<decl::Object>(N_("Armature")).hide_label();
     b.add_output<decl::ArmatureData>(N_("Armature"));
+    //b.add_output<decl::Float>(N_("Temp output"));
   }
   static void node_geo_exec(GeoNodeExecParams params)
   {
+    printf("unpack started\n");
     Object *object = params.get_input<Object *>("Armature");
-    BLI_findlink(&object->modifiers, 0);
-    for (int i = 0; i < BLI_listbase_count(&object->modifiers); i++) {
-      ModifierData* modifier = (ModifierData*)BLI_findlink(&object->modifiers, i);
-      printf("modifier name: %.*s\n", 32, modifier->name);
+    bArmature *armature = BKE_armature_from_object(object);
+    if(armature != NULL){
+      printf("set output\n");
+      printf("type: %s", typeid(std::remove_cv<std::remove_reference<ArmatureComponent>::type>::type).name());
+      ArmatureComponent *out = new ArmatureComponent();
+      out->replace(armature, GeometryOwnershipType::Editable);
+      printf("copy complete\n");
+      params.set_output<ArmatureComponent>("Armature", std::move(*out));
+    } else {
+      params.error_message_add(NodeWarningType::Error, TIP_("Input must be an Armature object"));
     }
+    printf("unpack finished\n");
   }
-  /*static void node_geo_exec(GeoNodeExecParams params)
-  {
-    GeometrySet geometry_set = params.extract_input<GeometrySet>("Geometry");
-  }*/
-
 }  // namespace blender::nodes::node_geo_unpack_armature_cc
 
 void register_node_type_geo_unpack_armature()

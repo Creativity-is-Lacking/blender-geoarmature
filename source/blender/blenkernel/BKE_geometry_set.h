@@ -26,7 +26,8 @@ typedef enum GeometryComponentType {
 } GeometryComponentType;
 
 typedef enum ArmatureDataComponentType {
-  GEO_COMPONENT_TYPE_BONE = 0,
+  GEO_COMPONENT_TYPE_ARMATURE = 0,
+  GEO_COMPONENT_TYPE_BONE = 1,
 } ArmatureDataComponentType;
 
 #define GEO_COMPONENT_TYPE_ENUM_SIZE 6
