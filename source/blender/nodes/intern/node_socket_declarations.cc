@@ -732,4 +732,50 @@ SocketDeclarationPtr create_extend_declaration(const eNodeSocketInOut in_out)
 
 /** \} */
 
+/* -------------------------------------------------------------------- */
+/** \name #ArmatureData
+ * \{ */
+
+bNodeSocket &ArmatureData::build(bNodeTree &ntree, bNode &node) const
+{
+  bNodeSocket &socket = *nodeAddSocket(
+      &ntree, &node, this->in_out, "NodeSocketArmature", this->identifier.c_str(), this->name.c_str());
+  this->set_common_flags(socket);
+  return socket;
+}
+
+bool ArmatureData::matches(const bNodeSocket &socket) const
+{
+  if (!this->matches_common_data(socket)) {
+    return false;
+  }
+  if (socket.type != SOCK_ARMATUREDATA) {
+    return false;
+  }
+  return true;
+}
+
+bool ArmatureData::can_connect(const bNodeSocket &socket) const
+{
+  return sockets_can_connect(*this, socket) && socket.type == SOCK_ARMATUREDATA;
+}
+
+Span<ArmatureDataComponentType> ArmatureData::supported_types() const
+{
+  return supported_types__;
+}
+
+ArmatureDataBuilder &ArmatureDataBuilder::supported_type(ArmatureDataComponentType supported_type)
+{
+  decl_->supported_types__ = {supported_type};
+  return *this;
+}
+
+ArmatureDataBuilder &ArmatureDataBuilder::supported_type(
+    blender::Vector<ArmatureDataComponentType> supported_types)
+{
+  decl_->supported_types__ = std::move(supported_types);
+  return *this;
+}
+/** \} */
 }  // namespace blender::nodes::decl

@@ -174,4 +174,6 @@ void register_geometry_nodes()
   register_node_type_geo_viewer();
   register_node_type_geo_volume_cube();
   register_node_type_geo_volume_to_mesh();
+  register_node_type_geo_unpack_armature();
+  register_node_type_geo_node_get_bone_by_name();
 }

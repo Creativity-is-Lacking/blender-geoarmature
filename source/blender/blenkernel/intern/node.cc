@@ -377,6 +377,7 @@ static void library_foreach_node_socket(LibraryForeachIDData *data, bNodeSocket 
     case SOCK_CUSTOM:
     case SOCK_SHADER:
     case SOCK_GEOMETRY:
+    case SOCK_ARMATUREDATA:
       break;
   }
 }
@@ -526,6 +527,7 @@ static void write_node_socket_default_value(BlendWriter *writer, bNodeSocket *so
       break;
     case SOCK_SHADER:
     case SOCK_GEOMETRY:
+    case SOCK_ARMATUREDATA:
       BLI_assert_unreachable();
       break;
   }
@@ -989,6 +991,7 @@ static void lib_link_node_socket(BlendLibReader *reader, ID *self_id, bNodeSocke
     case SOCK_CUSTOM:
     case SOCK_SHADER:
     case SOCK_GEOMETRY:
+    case SOCK_ARMATUREDATA:
       break;
   }
 }
@@ -1082,6 +1085,7 @@ static void expand_node_socket(BlendExpander *expander, bNodeSocket *sock)
     case SOCK_CUSTOM:
     case SOCK_SHADER:
     case SOCK_GEOMETRY:
+    case SOCK_ARMATUREDATA:
       break;
   }
 }
@@ -1771,6 +1775,7 @@ static void socket_id_user_increment(bNodeSocket *sock)
     case SOCK_CUSTOM:
     case SOCK_SHADER:
     case SOCK_GEOMETRY:
+    case SOCK_ARMATUREDATA:
       break;
   }
 }
@@ -1817,6 +1822,7 @@ static bool socket_id_user_decrement(bNodeSocket *sock)
     case SOCK_CUSTOM:
     case SOCK_SHADER:
     case SOCK_GEOMETRY:
+    case SOCK_ARMATUREDATA:
       break;
   }
   return false;
@@ -2007,6 +2013,8 @@ const char *nodeStaticSocketType(const int type, const int subtype)
       return "NodeSocketTexture";
     case SOCK_MATERIAL:
       return "NodeSocketMaterial";
+    case SOCK_ARMATUREDATA:
+      return "NodeSocketArmature";
     case SOCK_CUSTOM:
       break;
   }
@@ -2088,6 +2096,8 @@ const char *nodeStaticSocketInterfaceType(const int type, const int subtype)
       return "NodeSocketInterfaceTexture";
     case SOCK_MATERIAL:
       return "NodeSocketInterfaceMaterial";
+    case SOCK_ARMATUREDATA:
+      return "NodeSocketInterfaceArmature";
     case SOCK_CUSTOM:
       break;
   }
@@ -2125,6 +2135,8 @@ const char *nodeStaticSocketLabel(const int type, const int /*subtype*/)
       return "Texture";
     case SOCK_MATERIAL:
       return "Material";
+    case SOCK_ARMATUREDATA:
+      return "Armature Data";
     case SOCK_CUSTOM:
       break;
   }

@@ -77,6 +77,7 @@ set(SRC
   nodes/node_geo_extrude_mesh.cc
   nodes/node_geo_flip_faces.cc
   nodes/node_geo_geometry_to_instance.cc
+  nodes/node_geo_get_bone_by_name.cc
   nodes/node_geo_image.cc
   nodes/node_geo_image_info.cc
   nodes/node_geo_image_texture.cc
@@ -185,6 +186,7 @@ set(SRC
   nodes/node_geo_transform_geometry.cc
   nodes/node_geo_translate_instances.cc
   nodes/node_geo_triangulate.cc
+  nodes/node_geo_unpack_armature.cc
   nodes/node_geo_uv_pack_islands.cc
   nodes/node_geo_uv_unwrap.cc
   nodes/node_geo_viewer.cc

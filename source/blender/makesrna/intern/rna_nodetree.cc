@@ -77,6 +77,7 @@ static const EnumPropertyItem node_socket_data_type_items[] = {
     {SOCK_OBJECT, "OBJECT", 0, "Object", ""},
     {SOCK_IMAGE, "IMAGE", 0, "Image", ""},
     {SOCK_GEOMETRY, "GEOMETRY", 0, "Geometry", ""},
+    {SOCK_ARMATUREDATA, "ARMATUREDATA", 0, "ArmatureData", ""},
     {SOCK_COLLECTION, "COLLECTION", 0, "Collection", ""},
     {SOCK_TEXTURE, "TEXTURE", 0, "Texture", ""},
     {SOCK_MATERIAL, "MATERIAL", 0, "Material", ""},
@@ -106,6 +107,7 @@ static const EnumPropertyItem node_socket_type_items[] = {
     {SOCK_OBJECT, "OBJECT", 0, "Object", ""},
     {SOCK_IMAGE, "IMAGE", 0, "Image", ""},
     {SOCK_GEOMETRY, "GEOMETRY", 0, "Geometry", ""},
+    {SOCK_ARMATUREDATA, "ARMATUREDATA", 0, "ArmatureData", ""},
     {SOCK_COLLECTION, "COLLECTION", 0, "Collection", ""},
     {SOCK_TEXTURE, "TEXTURE", 0, "Texture", ""},
     {SOCK_MATERIAL, "MATERIAL", 0, "Material", ""},
@@ -11535,6 +11537,16 @@ static void def_geo_scale_elements(StructRNA *srna)
   RNA_def_property_update(prop, NC_NODE | NA_EDITED, "rna_GeometryNode_socket_update");
 }
 
+static void def_geo_unpack_armature(StructRNA *srna)
+{
+  PropertyRNA *prop;
+}
+
+static void def_get_bone_by_name(StructRNA *srna)
+{
+  PropertyRNA *prop;
+}
+
 /* -------------------------------------------------------------------------- */
 
 static void rna_def_shader_node(BlenderRNA *brna)
@@ -12372,6 +12384,21 @@ static void rna_def_node_socket_geometry(BlenderRNA *brna,
   RNA_def_struct_sdna(srna, "bNodeSocket");
 }
 
+static void rna_def_node_socket_ArmatureData(BlenderRNA *brna,
+                                         const char *identifier,
+                                         const char *interface_idname)
+{
+  StructRNA *srna;
+
+  srna = RNA_def_struct(brna, identifier, "NodeSocketStandard");
+  RNA_def_struct_ui_text(srna, "Armature Data Node Socket", "Armature socket of a node");
+  RNA_def_struct_sdna(srna, "bNodeSocket");
+
+  srna = RNA_def_struct(brna, interface_idname, "NodeSocketInterfaceStandard");
+  RNA_def_struct_ui_text(srna, "Armature Data Node Socket Interface", "Armature socket of a node");
+  RNA_def_struct_sdna(srna, "bNodeSocket");
+}
+
 static void rna_def_node_socket_collection(BlenderRNA *brna,
                                            const char *identifier,
                                            const char *interface_idname)
@@ -12637,6 +12664,8 @@ static void rna_def_node_socket_standard_types(BlenderRNA *brna)
   rna_def_node_socket_image(brna, "NodeSocketImage", "NodeSocketInterfaceImage");
 
   rna_def_node_socket_geometry(brna, "NodeSocketGeometry", "NodeSocketInterfaceGeometry");
+
+  rna_def_node_socket_ArmatureData(brna, "NodeSocketArmature", "NodeSocketInterfaceArmature");
 
   rna_def_node_socket_collection(brna, "NodeSocketCollection", "NodeSocketInterfaceCollection");
 
