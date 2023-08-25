@@ -25,11 +25,6 @@ typedef enum GeometryComponentType {
   GEO_COMPONENT_TYPE_EDIT = 5,
 } GeometryComponentType;
 
-typedef enum ArmatureDataComponentType {
-  GEO_COMPONENT_TYPE_ARMATURE = 0,
-  GEO_COMPONENT_TYPE_BONE = 1,
-} ArmatureDataComponentType;
-
 #define GEO_COMPONENT_TYPE_ENUM_SIZE 6
 
 void BKE_geometry_set_free(struct GeometrySet *geometry_set);
