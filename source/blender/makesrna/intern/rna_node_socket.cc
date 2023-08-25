@@ -1544,44 +1544,6 @@ static void rna_def_node_socket_geometry(BlenderRNA *brna,
   RNA_def_struct_sdna(srna, "bNodeSocket");
 }
 
-static void rna_def_node_socket_collection(BlenderRNA *brna,
-                                           const char *identifier,
-                                           const char *interface_idname)
-{
-  StructRNA *srna;
-  PropertyRNA *prop;
-
-  srna = RNA_def_struct(brna, identifier, "NodeSocketStandard");
-  RNA_def_struct_ui_text(srna, "Collection Node Socket", "Collection socket of a node");
-  RNA_def_struct_sdna(srna, "bNodeSocket");
-
-  RNA_def_struct_sdna_from(srna, "bNodeSocketValueCollection", "default_value");
-
-  prop = RNA_def_property(srna, "default_value", PROP_POINTER, PROP_NONE);
-  RNA_def_property_pointer_sdna(prop, nullptr, "value");
-  RNA_def_property_struct_type(prop, "Collection");
-  RNA_def_property_ui_text(prop, "Default Value", "Input value used for unconnected socket");
-  RNA_def_property_update(
-      prop, NC_NODE | NA_EDITED, "rna_NodeSocketStandard_value_and_relation_update");
-  RNA_def_property_flag(prop, PROP_EDITABLE | PROP_ID_REFCOUNT | PROP_CONTEXT_UPDATE);
-  RNA_def_property_override_flag(prop, PROPOVERRIDE_OVERRIDABLE_LIBRARY);
-
-  /* socket interface */
-  srna = RNA_def_struct(brna, interface_idname, "NodeSocketInterfaceStandard");
-  RNA_def_struct_ui_text(srna, "Collection Node Socket Interface", "Collection socket of a node");
-  RNA_def_struct_sdna(srna, "bNodeSocket");
-
-  RNA_def_struct_sdna_from(srna, "bNodeSocketValueCollection", "default_value");
-
-  prop = RNA_def_property(srna, "default_value", PROP_POINTER, PROP_NONE);
-  RNA_def_property_pointer_sdna(prop, nullptr, "value");
-  RNA_def_property_struct_type(prop, "Collection");
-  RNA_def_property_ui_text(prop, "Default Value", "Input value used for unconnected socket");
-  RNA_def_property_update(prop, NC_NODE | NA_EDITED, "rna_NodeSocketInterface_update");
-  RNA_def_property_flag(prop, PROP_EDITABLE | PROP_ID_REFCOUNT);
-  RNA_def_property_override_flag(prop, PROPOVERRIDE_OVERRIDABLE_LIBRARY);
-}
-
 static void rna_def_node_socket_texture(BlenderRNA *brna,
                                         const char *identifier,
                                         const char *interface_idname)
