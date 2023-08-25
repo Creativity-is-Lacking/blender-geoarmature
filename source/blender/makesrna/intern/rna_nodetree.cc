@@ -80,6 +80,7 @@ const EnumPropertyItem rna_node_socket_data_type_items[] = {
     {SOCK_OBJECT, "OBJECT", 0, "Object", ""},
     {SOCK_IMAGE, "IMAGE", 0, "Image", ""},
     {SOCK_GEOMETRY, "GEOMETRY", 0, "Geometry", ""},
+    {SOCK_ARMATUREDATA, "ARMATUREDATA", 0, "ArmatureData", ""},
     {SOCK_COLLECTION, "COLLECTION", 0, "Collection", ""},
     {SOCK_TEXTURE, "TEXTURE", 0, "Texture", ""},
     {SOCK_MATERIAL, "MATERIAL", 0, "Material", ""},

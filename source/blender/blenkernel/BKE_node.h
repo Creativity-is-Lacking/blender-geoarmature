@@ -1322,6 +1322,8 @@ void BKE_nodetree_remove_layer_n(struct bNodeTree *ntree, struct Scene *scene, i
 #define GEO_NODE_TOOL_3D_CURSOR 2111
 #define GEO_NODE_TOOL_FACE_SET 2112
 #define GEO_NODE_TOOL_SET_FACE_SET 2113
+#define GEO_NODE_UNPACK_ARMATURE 2114
+#define GEO_NODE_GET_BONE_BY_NAME 2115
 
 /** \} */
 

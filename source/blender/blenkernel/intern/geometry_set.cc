@@ -764,4 +764,71 @@ bool object_has_geometry_set_instances(const Object &object)
 
 /** \} */
 
+ArmatureDataComponent::ArmatureDataComponent(ArmatureDataComponentType type) : type_(type)
+{
+}
+
+ArmatureDataComponent *ArmatureDataComponent::create(ArmatureDataComponentType component_type)
+{
+  switch (component_type) {
+    case GEO_COMPONENT_TYPE_ARMATURE:
+      return new ArmatureComponent();
+    //case GEO_COMPONENT_TYPE_POINT_CLOUD:
+      //return new BoneComponent();
+  }
+  BLI_assert_unreachable();
+  return nullptr;
+}
+
+int ArmatureDataComponent::attribute_domain_size(const eAttrDomain domain) const
+{
+  if (this->is_empty()) {
+    return 0;
+  }
+  const std::optional<blender::bke::AttributeAccessor> attributes = this->attributes();
+  if (attributes.has_value()) {
+    return attributes->domain_size(domain);
+  }
+  return 0;
+}
+
+std::optional<blender::bke::AttributeAccessor> ArmatureDataComponent::attributes() const
+{
+  return std::nullopt;
+};
+std::optional<blender::bke::MutableAttributeAccessor> ArmatureDataComponent::attributes_for_write()
+{
+  return std::nullopt;
+}
+
+void ArmatureDataComponent::user_add() const
+{
+  users_.fetch_add(1);
+}
+
+void ArmatureDataComponent::user_remove() const
+{
+  const int new_users = users_.fetch_sub(1) - 1;
+  if (new_users == 0) {
+    delete this;
+  }
+}
+
+bool ArmatureDataComponent::is_mutable() const
+{
+  /* If the item is shared, it is read-only. */
+  /* The user count can be 0, when this is called from the destructor. */
+  return users_ <= 1;
+}
+
+ArmatureDataComponentType ArmatureDataComponent::type() const
+{
+  return type_;
+}
+
+bool ArmatureDataComponent::is_empty() const
+{
+  return false;
+}
+
 }  // namespace blender::bke

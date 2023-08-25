@@ -4,8 +4,6 @@
 
 #pragma once
 
-#include "BKE_geometry_set.hh"
-
 #include "NOD_socket_declarations.hh"
 
 namespace blender::nodes::decl {

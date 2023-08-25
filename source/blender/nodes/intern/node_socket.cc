@@ -566,7 +566,7 @@ static bNodeSocketType *make_standard_socket_type(int type, int subtype)
   srna = stype->ext_socket.srna = RNA_struct_find(socket_idname);
   BLI_assert(srna != nullptr);
   /* associate the RNA type with the socket type */
-  RNA_struct_blender_type_set(srna, stype);
+  RNA_struct_blender_type_set(srna, stype); //error here
 
   /* set the interface RNA type */
   srna = stype->ext_interface.srna = RNA_struct_find(interface_idname);
@@ -762,6 +762,18 @@ static bNodeSocketType *make_socket_type_geometry()
   return socktype;
 }
 
+static bNodeSocketType *make_socket_type_armature_data()
+{
+  bNodeSocketType *socktype = make_standard_socket_type(SOCK_ARMATUREDATA, PROP_NONE);
+  socktype->base_cpp_type = &blender::CPPType::get<GeometrySet>();
+  socktype->get_base_cpp_value = [](const bNodeSocket & /*socket*/, void *r_value) {
+    new (r_value) GeometrySet();
+  };
+  socktype->geometry_nodes_cpp_type = socktype->base_cpp_type;
+  socktype->get_geometry_nodes_cpp_value = socktype->get_base_cpp_value;
+  return socktype;
+}
+
 static bNodeSocketType *make_socket_type_collection()
 {
   bNodeSocketType *socktype = make_standard_socket_type(SOCK_COLLECTION, PROP_NONE);
@@ -848,6 +860,8 @@ void register_standard_node_socket_types()
   nodeRegisterSocketType(make_socket_type_object());
 
   nodeRegisterSocketType(make_socket_type_geometry());
+
+  nodeRegisterSocketType(make_socket_type_armature_data());
 
   nodeRegisterSocketType(make_socket_type_collection());
 

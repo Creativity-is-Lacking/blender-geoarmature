@@ -11,6 +11,11 @@
 #include <iosfwd>
 #include <mutex>
 
+#undef rad1
+#undef rad2
+
+#include "BKE_geometry_set.h"
+
 #include "BLI_bounds_types.hh"
 #include "BLI_function_ref.hh"
 #include "BLI_map.hh"
